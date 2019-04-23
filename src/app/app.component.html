@@ -1,0 +1,48 @@
+<ion-app>
+  <ion-split-pane [disabled]="!authInfo">
+    <ion-menu>
+      <ion-content>
+        <section>
+          <div padding-top padding-bottom>
+            <div text-center class="menu-photo-container">
+              <img src="{{authInfo?.photoUrl || 'assets/img/avatar.png'}}" alt="" class="photo">
+            </div>
+          </div>
+          <div text-center padding-bottom>
+            <h5 no-margin>{{authInfo?.name}}</h5>
+          </div>
+          <p>&nbsp;</p>
+        </section>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item [routerDirection]="'root'" [routerLink]="['/home']">
+              <ion-icon slot="start" name="home"></ion-icon>
+              <ion-label>
+                Início
+              </ion-label>
+            </ion-item>
+            <ion-item [routerDirection]="'root'" [routerLink]="['/calendarPlan/list']">
+              <ion-icon slot="start" name="calendar"></ion-icon>
+              <ion-label>
+                Planos
+              </ion-label>
+            </ion-item>
+            <ion-item [routerDirection]="'root'" [routerLink]="['/branch/list']">
+              <ion-icon slot="start" name="apps"></ion-icon>
+              <ion-label>
+                Unidades
+              </ion-label>
+            </ion-item>
+            <ion-item (click)="signOut()">
+              <ion-icon slot="start" name="close"></ion-icon>
+              <ion-label>
+                Sair
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

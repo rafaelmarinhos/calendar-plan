@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sugerir Plano</ion-title>
+    <ion-buttons slot="end">
+      <ion-button icon-only (click)="dismiss(false)">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-radio-group>
+      <ion-item *ngFor="let item of (items | async)">
+        <ion-label>{{item.name}}</ion-label>
+        <ion-radio slot="start" (ionSelect)="updateSelected(item.id)"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full" color="success" class="fat" no-margin (click)="dismiss(true)">
+    Sugerir
+  </ion-button>
+</ion-footer>

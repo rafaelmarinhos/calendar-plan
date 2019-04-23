@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/calendarEvent/list/{{planId}}"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tópicos para a Data {{calendarEvent?.startsAt}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/calendarEventTopic','create', planId, eventId]">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ng-container *ngIf="(calendarEventTopics | async) as list; else loading">
+    <section class="message-container">
+      <ion-item class="delay-show" color="success-light" *ngIf="list?.length < 1">
+        <ion-label>
+          <h2>Não há tópicos cadastrados ainda nessa data</h2>
+          <p>Crie tópicos nas datas para organizar o conteúdo programático nos calendários do plano.</p>
+        </ion-label>
+      </ion-item>
+    </section>
+    <ion-card padding-bottom>
+      <ion-card-header *ngIf="calendarEvent">
+        <ion-card-title>
+          {{calendarEvent.name}}
+        </ion-card-title>
+        <ion-card-subtitle>
+          Plano
+          <ng-container *ngIf="calendarPlan | async as plan">
+            {{plan.name}} <ion-text color="success" *ngIf="plan.branchId">({{plan.branchName}})</ion-text>
+          </ng-container>
+          <br/>
+          {{seasonInfo[calendarEvent.season].name}} - {{audienceInfo[calendarEvent.audience].name}}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ng-container *ngIf="list.length > 0">
+        <ion-item-divider>Tópicos</ion-item-divider>
+        <ion-list>
+          <ion-item *ngFor="let item of list">
+            <ion-label>
+              <h2>{{item.title}}</h2>
+              <p>{{item.subtitle}}</p>
+            </ion-label>
+            <ion-buttons slot="end">
+              <ion-button fill="outline" color="success" [routerLink]="['/calendarEventTopic/edit', planId, eventId, item.id]">Editar</ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-list>
+      </ng-container>
+    </ion-card>
+  </ng-container>
+  <ng-template #loading>
+    <div padding text-center>
+      <img src="assets/img/loading.gif" alt="">
+    </div>
+  </ng-template>
+</ion-content>

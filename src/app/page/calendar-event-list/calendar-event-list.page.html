@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/calendarPlan/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Datas para o Plano
+      <ng-container *ngIf="calendarPlan | async as plan">
+        {{plan.name}} <ion-text color="success" *ngIf="plan.branchId">({{plan.branchName}})</ion-text>
+      </ng-container>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/calendarEvent','create', planId]">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/calendarEventTopic','reorder', planId]">
+        <ion-icon slot="icon-only" name="list"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <section class="full-width">
+    <ion-list>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked">Tempo</ion-label>
+              <ion-select [(ngModel)]="seasonId" placeholder="Selecione..." (ionChange)="filter()">
+                <ion-select-option *ngFor="let item of (seasonInfo | keys)"
+                                   [value]="item.key">{{item.value.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked">Público</ion-label>
+              <ion-select [(ngModel)]="audienceId" placeholder="Selecione..." (ionChange)="filter()">
+                <ion-select-option *ngFor="let item of (audienceInfo | keys)"
+                                   [value]="item.key">{{item.value.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </section>
+  <section class="message-container" *ngIf="calendarEvents?.length < 1">
+    <ion-item color="success-light">
+      <ion-icon name="alert" slot="start"></ion-icon>
+      <ion-label>
+        <h2>Nenhum registro encontrado...</h2>
+        <p>Não há datas cadastradas para os filtros selecionados.</p>
+      </ion-label>
+    </ion-item>
+  </section>
+
+  <ion-card padding-bottom *ngIf="calendarEvents?.length > 0">
+    <ion-list>
+      <ion-item *ngFor="let item of calendarEvents">
+        <ion-label>
+          <h2>{{item.name}}</h2>
+          <p>{{seasonInfo[item.season].name}} - {{audienceInfo[item.audience].name}}</p>
+          <p>
+            <ion-text *ngIf="item.endsAt">De</ion-text>
+            {{item.startsAt}}
+            <ion-text *ngIf="item.endsAt">até {{item.endsAt}}</ion-text>
+          </p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button fill="outline" color="success" [routerLink]="['/calendarEvent/edit', planId, item.id]">Editar
+          </ion-button>
+          <ion-button fill="solid" color="dark" [routerLink]="['/calendarEventTopic/list', planId, item.id]">Tópicos
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

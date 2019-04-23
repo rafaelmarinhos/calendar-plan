@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-card padding-bottom>
+    <form [formGroup]="form" *ngIf="form">
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Nome</ion-label>
+          <ion-input type="email" formControlName="name" placeholder="Exemplo: João Silva"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input type="email" formControlName="email" placeholder="Exemplo: joao@email.com"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Senha</ion-label>
+          <ion-input type="password" formControlName="password" placeholder="******"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-button color="success" slot="end" [disabled]="form?.invalid" (click)="signUp()">Cadastrar</ion-button>
+        </ion-item>
+      </ion-list>
+    </form>
+  </ion-card>
+</ion-content>

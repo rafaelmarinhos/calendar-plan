@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/calendarPlan/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Plano</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="remove()">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <form [formGroup]="form" *ngIf="form">
+    <ion-card padding-bottom>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Nome ou referência
+            <validator-error [control]="f.name"></validator-error>
+          </ion-label>
+          <ion-input formControlName="name" placeholder="Exemplo: 2018-2021" autofocus></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">
+            Do dia
+            <validator-error [control]="form"></validator-error>
+          </ion-label>
+          <mat-form-field hidden>
+            <input [matDatepicker]="pickerFrom" (dateChange)="updateStartsAt($event)">
+            <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFrom touchUi="true"></mat-datepicker>
+          </mat-form-field>
+          <ion-input readonly (click)="pickerFrom.open()" placeholder="__/__/____"
+                     formControlName="startsAt"></ion-input>
+          <ion-button fill="clear" slot="end" (click)="pickerFrom.open()" size="large" color="success">
+            <ion-icon name="calendar"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">
+            Até o dia
+            <validator-error [control]="formTo"></validator-error>
+          </ion-label>
+          <mat-form-field hidden>
+            <input [matDatepicker]="formTo" (dateChange)="updateEndsAt($event)">
+            <mat-datepicker-toggle matSuffix [for]="formTo"></mat-datepicker-toggle>
+            <mat-datepicker #formTo touchUi="true"></mat-datepicker>
+          </mat-form-field>
+          <ion-input readonly (click)="formTo.open()" placeholder="__/__/____" formControlName="endsAt"></ion-input>
+          <ion-button fill="clear" slot="end" (click)="formTo.open()" size="large" color="success">
+            <ion-icon name="calendar"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </form>
+
+  <ion-card padding-bottom>
+    <ion-list>
+      <ion-item>
+        <ion-icon name="arrow-dropdown" slot="start"></ion-icon>
+        <ion-label>
+          <b>Sugerido em...</b>
+        </ion-label>
+        <ion-button fill="clear" slot="end" (click)="listAvailableBranches()">
+          <ion-icon name="list" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-item *ngFor="let plan of (suggestedPlans | async)">
+        <ion-label [routerLink]="['/calendarEvent', 'list', plan.id]">
+          <h2>{{plan.branchName}}</h2>
+          <p><i>Atualizado em: {{plan.updatedAt}}</i></p>
+          <p>
+            <ion-icon color="danger" name="alert" margin-end *ngIf="plan.pending"></ion-icon>
+            <ion-icon color="success" name="checkmark" margin-end *ngIf="!plan.pending"></ion-icon>
+            <i>Última revisão em {{plan.revisedAt}} por {{plan.revisedBy}}</i>
+          </p>
+        </ion-label>
+        <ion-button color="medium" fill="clear" slot="end" (click)="removeSuggestion(plan)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
+    <ion-fab-button color="success" [disabled]="form?.invalid" (click)="save()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

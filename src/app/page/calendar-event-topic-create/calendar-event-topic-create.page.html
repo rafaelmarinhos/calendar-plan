@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/calendarEventTopic/list/{{planId}}/{{eventId}}"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criar Tópico</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <form [formGroup]="form" *ngIf="form">
+    <ion-card padding-bottom>
+      <ion-card-header>
+        <ion-card-title>Plano: {{(calendarPlan | async)?.name}}</ion-card-title>
+        <ion-card-subtitle>Data: {{calendarPlanEvent?.name }}, {{calendarPlanEvent?.startsAt }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Título <validator-error [control]="f.title"></validator-error></ion-label>
+          <ion-input formControlName="title" placeholder="Exemplo: Capítulo I, Seção I"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Subtítulo <validator-error [control]="f.subtitle"></validator-error></ion-label>
+          <ion-input formControlName="subtitle" placeholder="Exemplo: Introdução"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Link de Referência <validator-error [control]="f.url"></validator-error></ion-label>
+          <ion-input formControlName="url" placeholder="http://multiturma.com/licao"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </form>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
+    <ion-fab-button color="success" [disabled]="form?.invalid" (click)="save()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

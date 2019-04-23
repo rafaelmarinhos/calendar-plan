@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/calendarPlan/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Períodos do Plano {{(calendarPlan | async)?.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/calendarPeriod','create', planId]">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <section class="message-container">
+    <ion-item class="delay-show" color="success-light" *ngIf="countPeriods < 1">
+      <ion-label>
+        <h2>Não há períodos cadastrados ainda nesse plano</h2>
+        <p>Crie intervalos de tempo para definir períodos nos calendários do plano.</p>
+      </ion-label>
+    </ion-item>
+  </section>
+  <ion-card padding-bottom *ngFor="let period of calendarPeriods">
+    <ion-item-divider>{{period.name}}</ion-item-divider>
+    <ion-list>
+      <ion-item detail *ngFor="let item of period.ref | async" [routerLink]="['/calendarPeriod/edit', planId, item.id]">
+        <ion-label>
+          <h2>{{item.name}}</h2>
+          <p>De {{item.startsAt}} até {{item.endsAt}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/calendarEvent/list/{{planId}}"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Marcar Data no Plano</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <form [formGroup]="form" *ngIf="form">
+    <ion-card padding-bottom>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Tempo</ion-label>
+          <ion-select formControlName="season" placeholder="Selecione...">
+            <ion-select-option *ngFor="let item of (seasons | keys)" [value]="item.key">{{item.value.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Público</ion-label>
+          <ion-select formControlName="audience" placeholder="Selecione...">
+            <ion-select-option *ngFor="let item of (audiences | keys)" [value]="item.key">{{item.value.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Nome ou referência <validator-error [control]="f.name"></validator-error></ion-label>
+          <ion-input formControlName="name" placeholder="Exemplo: Páscoa, Quaresma..." autofocus></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">
+            Do dia <validator-error [control]="form"></validator-error>
+          </ion-label>
+          <mat-form-field hidden>
+            <input [matDatepicker]="pickerFrom" (dateChange)="updateStartsAt($event)">
+            <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFrom touchUi="true"></mat-datepicker>
+          </mat-form-field>
+          <ion-input readonly (click)="pickerFrom.open()" placeholder="__/__/____" formControlName="startsAt"></ion-input>
+          <ion-button fill="clear" slot="end" (click)="pickerFrom.open()" size="large" color="success">
+            <ion-icon name="calendar"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">
+            Até o dia <validator-error [control]="formTo"></validator-error>
+          </ion-label>
+          <mat-form-field hidden>
+            <input [matDatepicker]="formTo" (dateChange)="updateEndsAt($event)">
+            <mat-datepicker-toggle matSuffix [for]="formTo"></mat-datepicker-toggle>
+            <mat-datepicker #formTo touchUi="true"></mat-datepicker>
+          </mat-form-field>
+          <ion-input readonly (click)="formTo.open()" placeholder="__/__/____" formControlName="endsAt"></ion-input>
+          <ion-button fill="clear" slot="end" (click)="formTo.open()" size="large" color="success">
+            <ion-icon name="calendar"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </form>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
+    <ion-fab-button color="success" [disabled]="form?.invalid" (click)="save()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

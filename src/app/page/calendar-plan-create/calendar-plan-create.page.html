@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/calendarPlan/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criar Plano</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <form [formGroup]="form" *ngIf="form">
+    <ion-card padding-bottom>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Nome ou referência <validator-error [control]="f.name"></validator-error>
+          </ion-label>
+          <ion-input formControlName="name" placeholder="Exemplo: 2018-2021" autofocus></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Ano de Conclusão<validator-error [control]="f.conclusionYear"></validator-error>
+          </ion-label>
+          <ion-input formControlName="conclusionYear" placeholder="Exemplo: 2020"></ion-input>
+        </ion-item>
+        <ion-item>          
+          <ion-label>Tempo para Investigação</ion-label>
+          <ion-select placeholder="Selecione..." formControlName="inquiry">
+            <ion-select-option [value]="1">1 semana</ion-select-option>
+            <ion-select-option [value]="2">2 semanas</ion-select-option>
+            <ion-select-option [value]="3">3 semanas</ion-select-option>
+            <ion-select-option [value]="4">4 semanas</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>          
+          <ion-label>Tempo para Examinação</ion-label>
+          <ion-select placeholder="Selecione..." formControlName="examination">
+            <ion-select-option [value]="1">1 semana</ion-select-option>
+            <ion-select-option [value]="2">2 semanas</ion-select-option>
+            <ion-select-option [value]="3">3 semanas</ion-select-option>
+            <ion-select-option [value]="4">4 semanas</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </form>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
+    <ion-fab-button color="success" [disabled]="form?.invalid" (click)="save()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

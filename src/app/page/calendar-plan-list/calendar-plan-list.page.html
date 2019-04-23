@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Planos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/calendarPlan','create']">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ng-container *ngIf="(items | async) as list; else loading">
+    <section class="message-container">
+      <ion-item class="delay-show" color="success-light" *ngIf="list.length < 1">
+        <ion-label>
+          <h2>Não há planos cadastrados ainda.</h2>
+          <p>Crie planos para definir períodos no calendário e atribuir eventos e tópicos aos dias.</p>
+        </ion-label>
+      </ion-item>
+    </section>
+    <ion-card *ngFor="let item of list">
+      <ion-item>
+        <ion-label>
+          <h2>{{item.name}} <span *ngIf="item.branchId">({{item.branchName}})</span></h2>
+          <p>Páscoa: {{ item.easterDate }}</p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button fill="outline" color="success" [routerLink]="['/calendarPlan/edit', item.id]">Editar</ion-button>
+          <ion-button fill="solid" color="success" [routerLink]="['/calendarPeriod/list', item.id]">Períodos</ion-button>
+          <ion-button fill="solid" color="dark" [routerLink]="['/calendarEvent/list', item.id]">Datas</ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #loading>
+    <div padding text-center>
+      <img src="assets/img/loading.gif" alt="">
+    </div>
+  </ng-template>
+</ion-content>

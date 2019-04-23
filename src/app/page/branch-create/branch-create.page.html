@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/branch/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criar Unidade</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <form [formGroup]="form" *ngIf="form">
+    <ion-card padding-bottom>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Nome ou referência <validator-error [control]="f.name"></validator-error></ion-label>
+          <ion-input formControlName="name" placeholder="Exemplo: 2018-2021" autofocus></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </form>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
+    <ion-fab-button color="success" [disabled]="form?.invalid" (click)="save()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

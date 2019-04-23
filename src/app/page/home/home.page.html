@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Calendário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <section class="full-width" *ngIf="selectedCalendarPlanId">
+    <ion-list no-padding>
+      <ion-item>
+        <ion-icon name="search" slot="start"></ion-icon>
+        <ion-label>Filtro: </ion-label>
+        <ion-select placeholder="Selecione..." [(ngModel)]="selectedCalendarPlanId" (ionChange)="updateSelectedCalendarPlan()">
+          <ion-select-option *ngFor="let item of calendarPlans" [value]="item.id">{{item.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </section>
+  <section class="message-container" *ngIf="!selectedCalendarPlanId">
+    <ion-item color="success-light">
+      <ion-icon name="alert" slot="start"></ion-icon>
+      <ion-label>
+        <h2>Você ainda não criou um plano ou não tem permissão em um plano já criado.</h2>
+        <p>Os planos contém períodos de datas e eventos marcados no calendário.</p>
+      </ion-label>
+      <ion-button fill="outline" slot="end" [routerLink]="['/calendarPlan/list']">Planos</ion-button>
+    </ion-item>
+  </section>
+
+  <ion-card>
+    <ion-card-content>
+      <section padding-bottom>
+        <ion-grid>
+          <ion-row>
+            <ion-col sizeXs="6" sizeLg="4">
+              <ion-button size="small" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+                <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+              </ion-button>
+              <ion-button color="success" size="small" mwlCalendarToday [(viewDate)]="viewDate">Hoje</ion-button>
+              <ion-button size="small" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+                <ion-icon slot="icon-only" name="arrow-round-forward"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col text-center sizeXs="6" sizeLg="4"><h2 class="current-date">{{ viewDate | date:'dd MMMM yyyy' | uppercase }}</h2></ion-col>
+            <ion-col text-right sizeXs="12" sizeLg="4">
+              <!--
+              <ion-button color="success" size="small" (click)="view = CalendarView.Month" [class.active]="view === CalendarView.Month">Mês</ion-button>
+              <ion-button size="small" (click)="view = CalendarView.Week"  [class.active]="view === CalendarView.Week">Semana</ion-button>
+              -->
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </section>
+
+      <section [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="CalendarView.Month"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)"
+          (beforeViewRender)="beforeMonthViewRender($event)"
+          [locale]="locale"
+          [cellTemplate]="customCellTemplate">
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="CalendarView.Week"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)"
+          [locale]="locale">
+        </mwl-calendar-week-view>
+
+        <div padding-top>
+          <ion-text padding-right *ngFor="let item of calendarPeriodLegends"><span class="dot" [innerHTML]="item.symbol"></span> {{item.name}}</ion-text>
+        </div>
+      </section>
+    </ion-card-content>
+  </ion-card>
+
+  <ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top">
+      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+      <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    </div>
+    <span class="period-type" *ngFor="let item of day.periodTypes">
+      <span [innerHTML]="item.symbol"></span>{{item.name}}
+    </span>
+  </ng-template>
+</ion-content>

@@ -1,0 +1,21 @@
+export const GOLDEN_NUMBER_DATE = {
+    1: { day: 14, month: 3, desc: '14 de abril' },
+    2: { day: 3, month: 3, desc: '3 de abril' },
+    3: { day: 23, month: 2, desc: '23 de março' },
+    4: { day: 11, month: 3, desc: '11 de abril' },
+    5: { day: 31, month: 2, desc: '31 de março' },
+    6: { day: 18, month: 3, desc: '18 de abril' },
+    7: { day: 8, month: 3, desc: '8 de abril' },
+    8: { day: 28, month: 2, desc: '28 de março' },
+    9: { day: 16, month: 3, desc: '16 de abril' },
+    10: { day: 5, month: 3, desc: '5 de abril' },
+    11: { day: 25, month: 2, desc: '25 de março' },
+    12: { day: 13, month: 3, desc: '13 de abril' },
+    13: { day: 2, month: 3, desc: '2 de abril' },
+    14: { day: 22, month: 2, desc: '22 de março' },
+    15: { day: 10, month: 3, desc: '10 de abril' },
+    16: { day: 30, month: 2, desc: '30 de março' },
+    17: { day: 17, month: 3, desc: '17 de abril' },
+    18: { day: 7, month: 3, desc: '7 de abril' },
+    19: { day: 27, month: 2, desc: '27 de março' }
+};

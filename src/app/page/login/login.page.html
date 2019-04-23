@@ -1,0 +1,35 @@
+<ion-content color="light">
+  <div class="v-align-container">
+    <div class="v-align-item">
+      <ion-card>
+        <div text-center padding>
+          <img src="assets/img/calendar.svg" alt="">
+          <h1>Planejamento de Calendário</h1>
+          <p>Organize e acompanhe o cumprimento de variados calendários pelas suas unidades.</p>
+        </div>
+        <form [formGroup]="form" *ngIf="form">
+          <ion-list>
+            <ion-item>
+              <ion-label position="stacked">Email</ion-label>
+              <ion-input type="email" formControlName="email" placeholder="Exemplo: joao@email.com"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Senha</ion-label>
+              <ion-input type="password" formControlName="password" placeholder="******"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-button color="success" slot="end" [disabled]="form?.invalid" (click)="emailLogin()">Entrar</ion-button>
+              <ion-button fill="clear" slot="end" [routerLink]="['/signup']">Não tem cadastro?</ion-button>
+            </ion-item>
+          </ion-list>
+        </form>
+        <ion-card-content>
+          <ion-buttons>
+            <ion-button color="primary" (click)="googleLogin()">Entrar com Google</ion-button>
+            <ion-button color="dark" (click)="facebookLogin()">Entrar com Facebook</ion-button>
+          </ion-buttons>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

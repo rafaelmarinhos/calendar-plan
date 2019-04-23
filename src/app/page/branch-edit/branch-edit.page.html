@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/branch/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Unidade</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="remove()">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-card padding-bottom>
+    <ion-list>
+      <form [formGroup]="form" *ngIf="form">
+        <ion-item>
+          <ion-label position="stacked">Nome ou referência
+            <validator-error [control]="f.name"></validator-error>
+          </ion-label>
+          <ion-input formControlName="name" placeholder="Exemplo: 2018-2021" autofocus></ion-input>
+        </ion-item>
+      </form>
+      <ion-item>
+        <ion-icon name="arrow-dropdown" slot="start"></ion-icon>
+        <ion-label>
+          <b>Permissões</b>
+        </ion-label>
+        <ion-button fill="clear" slot="end" (click)="toggleEnablePermissionAdd()">
+          <ion-icon name="add" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ng-container *ngIf="enablePermissionAdd">
+        <ion-item>
+          <ion-label>
+            <h2>Atribuir permissão</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="fixed">E-mail:</ion-label>
+          <ion-input type="email" #emailInput [(ngModel)]="permissionEmail"></ion-input>
+          <ion-button slot="end" fill="clear" (click)="savePermission()">
+            <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ng-container>
+      <ion-item *ngFor="let p of (ref | async)?.permissions">
+        <ion-label>
+          <p>{{p.email}} <ion-text color="medium">[{{p.role}}]</ion-text></p>
+        </ion-label>
+        <ion-button color="medium" fill="clear" slot="end" (click)="removePermission(p)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card padding-bottom>
+    <ion-list>
+      <ion-item>
+        <ion-icon name="arrow-dropdown" slot="start"></ion-icon>
+        <ion-label>
+          <b>Planos Sugeridos</b>
+        </ion-label>
+        <ion-button fill="clear" slot="end" (click)="listAvailablePlans()">
+          <ion-icon name="list" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-item *ngFor="let plan of (suggestedPlans | async)">
+        <ion-label [routerLink]="['/calendarEvent', 'list', plan.id]">
+          <h2>{{plan.name}}</h2>
+          <p><i>Criado em: {{plan.createdAt}}</i></p>
+        </ion-label>
+        <ion-button color="medium" fill="clear" slot="end" (click)="removeSuggestion(plan)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
+    <ion-fab-button color="success" [disabled]="form?.invalid" (click)="save()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
