@@ -107,6 +107,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.setCalendarDates(new Date());
   }
 
   ngOnDestroy() {
@@ -154,5 +155,116 @@ export class HomePage implements OnInit, OnDestroy {
 
   updateSelectedCalendarPlan() {
     this.calendarPlanId.next(this.selectedCalendarPlanId);
+  }
+
+  // Funções calendário horizontal
+
+  horizontalCalendarDates: any;
+  HOZ_CAL: any;
+  weekDays = [
+    {
+      full: 'Domingo',
+      short: 'Dom'
+    },
+    {
+      full: 'Segunda',
+      short: 'Seg'
+    },
+    {
+      full: 'Terça',
+      short: 'Ter'
+    },
+    {
+      full: 'Quarta',
+      short: 'Qua'
+    },
+    {
+      full: 'Quinta',
+      short: 'Qui'
+    },
+    {
+      full: 'Sexta',
+      short: 'Sex'
+    },
+    {
+      full: 'Sábado',
+      short: 'Sab'
+    },
+  ];
+  monthNames = [
+    {
+      full: 'Janeiro',
+      short: 'Jan'
+    },
+    {
+      full: 'Fevereiro',
+      short: 'Fev'
+    },
+    {
+      full: 'Março',
+      short: 'Mar'
+    },
+    {
+      full: 'Abril',
+      short: 'Abr'
+    },
+    {
+      full: 'Maio',
+      short: 'Mai'
+    },
+    {
+      full: 'Junho',
+      short: 'Jun'
+    },
+    {
+      full: 'Julho',
+      short: 'Jul'
+    },
+    {
+      full: 'Agosto',
+      short: 'Ago'
+    },
+    {
+      full: 'Setembro',
+      short: 'Set'
+    },
+    {
+      full: 'Outubro',
+      short: 'Out'
+    },
+    {
+      full: 'Novembro',
+      short: 'Nov'
+    },
+    {
+      full: 'Dezembro',
+      short: 'Dez'
+    },
+  ];
+
+  setCalendarDates(baseDate = new Date()) {
+    this.horizontalCalendarDates = [];
+    const numberOfDates = 7;
+    const daysFromToday = -3;
+
+    for (let i = daysFromToday; i < daysFromToday + numberOfDates; i++) {
+      const dateOffset = (24*60*60*1000) * i;
+      let bufferDate = new Date(baseDate);
+      const day = new Date(bufferDate.setTime(bufferDate.getTime() + dateOffset));
+      this.horizontalCalendarDates.push({
+        date: day,
+        day: day.getDate(),
+        month: day.getMonth(),
+        monthNameShort: this.monthNames[day.getMonth()].short,
+        monthNameFull: this.monthNames[day.getMonth()].full,
+        year: day.getFullYear(),
+        weekDayShort: this.weekDays[day.getDay()].short,
+        weekDayFull: this.weekDays[day.getDay()].full,
+      });
+    }
+
+    this.HOZ_CAL = this.horizontalCalendarDates;
+
+    console.log('daysfjaisojsd: ', this.HOZ_CAL);
   }
 }
