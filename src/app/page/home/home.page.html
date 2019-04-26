@@ -86,134 +86,139 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row padding-top>
-          <ion-col class="text-center">
-            <h1>
-              {{ HOZ_CAL[3].year }}
-            </h1>
-          </ion-col>
-        </ion-row>
-        <ion-row padding>
-          <!-- <ion-col *ngIf="false" class="text-center">
-            <ion-button expand="full" fill="outline" (click)="setCalendarDates(HOZ_CAL[0].date)">
-              <h2>
-                <strong>{{ HOZ_CAL[0].day }}/{{ HOZ_CAL[0].month }}</strong>
-                ({{ HOZ_CAL[0].weekDayShort }})
-              </h2>
-            </ion-button>
-          </ion-col>
-          <ion-col *ngIf="false" class="text-center">
-            <ion-button expand="full" fill="outline" (click)="setCalendarDates(HOZ_CAL[1].date)">
-              <h2>
-                <strong>{{ HOZ_CAL[1].day }}/{{ HOZ_CAL[1].month }}</strong>
-                ({{ HOZ_CAL[1].weekDayShort }})
-              </h2>
-            </ion-button>
-          </ion-col> -->
-          <ion-col *ngIf="true" class="text-center">
-            <ion-button expand="full" color="tertiary" fill="outline" (click)="setCalendarDates(HOZ_CAL[2].date)">
-              <h2 class="font-smaller">
-                {{ HOZ_CAL[2].weekDayShort }}
-                <strong class="font-bigger">{{ HOZ_CAL[2].day }}</strong>
-              </h2>
-            </ion-button>
-          </ion-col>
+  <ion-row class="message-container mt-0">
+    <ion-col class="ion-padding-horizontal ion-padding-top">
+      <ion-card>
+        <ion-card-content>
+          <ion-row padding-top>
+            <ion-col class="text-center">
+              <h1>
+                {{ HOZ_CAL[3].year }}
+              </h1>
+            </ion-col>
+          </ion-row>
+          <ion-row padding>
+            <!-- <ion-col *ngIf="false" class="text-center">
+              <ion-button expand="full" fill="outline" (click)="setCalendarDates(HOZ_CAL[0].date)">
+                <h2>
+                  <strong>{{ HOZ_CAL[0].day }}/{{ HOZ_CAL[0].month }}</strong>
+                  ({{ HOZ_CAL[0].weekDayShort }})
+                </h2>
+              </ion-button>
+            </ion-col> -->
+            <ion-col size="1" class="text-right">
+              <ion-button color="light" (click)="setCalendarDates(HOZ_CAL[0].date)">
+                <ion-icon slot="icon-only" name="rewind"></ion-icon>
+              </ion-button>
+            </ion-col>
 
-          <!-- DIA ATUAL -->
-          <ion-col *ngIf="true" class="text-center" size="6">
-            <ion-button expand="full" color="tertiary" (click)="setCalendarDates(HOZ_CAL[3].date)">
-              <h2>
-                {{ HOZ_CAL[3].weekDayFull }},
-                <strong class="font-bigger">{{ HOZ_CAL[3].day }}</strong>
-                de {{ HOZ_CAL[3].monthNameFull }}
-              </h2>
-            </ion-button>
-          </ion-col>
-          <!-- DIA ATUAL -->
+            <ion-col *ngIf="true" class="text-center ph-0">
+              <ion-button expand="full" color="light" (click)="setCalendarDates(HOZ_CAL[1].date)">
+                <h2 class="font-smaller">
+                  {{ HOZ_CAL[1].weekDayShort }}
+                  <strong class="font-bigger">{{ HOZ_CAL[1].day }}</strong>
+                </h2>
+              </ion-button>
+            </ion-col>
+            <ion-col *ngIf="true" class="text-center ph-0" size="2">
+              <ion-button expand="full" color="light" (click)="setCalendarDates(HOZ_CAL[2].date)">
+                <h2 class="font-smaller">
+                  {{ HOZ_CAL[2].weekDayShort }}
+                  <strong class="font-bigger">{{ HOZ_CAL[2].day }}</strong>
+                </h2>
+              </ion-button>
+            </ion-col>
 
-          <ion-col *ngIf="true" class="text-center">
-            <ion-button expand="full" color="tertiary" fill="outline" (click)="setCalendarDates(HOZ_CAL[4].date)">
-              <h2 class="font-smaller">
-                {{ HOZ_CAL[4].weekDayShort }}
-                <strong class="font-bigger">{{ HOZ_CAL[4].day }}</strong>
-              </h2>
-            </ion-button>
-          </ion-col>
-          <!-- <ion-col *ngIf="false" class="text-center">
-            <ion-button expand="full" fill="outline" (click)="setCalendarDates(HOZ_CAL[5].date)">
-              <h2>
-                <strong>{{ HOZ_CAL[5].day }}/{{ HOZ_CAL[5].month }}</strong>
-                ({{ HOZ_CAL[5].weekDayShort }})
-              </h2>
-            </ion-button>
-          </ion-col>
-          <ion-col *ngIf="false" class="text-center">
-            <ion-button expand="full" fill="outline" (click)="setCalendarDates(HOZ_CAL[6].date)">
-              <h2>
-                <strong>{{ HOZ_CAL[6].day }}/{{ HOZ_CAL[6].month }}</strong>
-                ({{ HOZ_CAL[6].weekDayShort }})
-              </h2>
-            </ion-button>
-          </ion-col> -->
-        </ion-row>
-        <ion-row padding>
-          <strong>Primeira Leitura (At 4,1-12)</strong>
-          Leitura dos Atos dos Apóstolos.
+            <!-- DIA ATUAL -->
+            <ion-col *ngIf="true" class="text-center" size="4">
+              <ion-button expand="full" color="light" (click)="this.randomIndex=1000; setCalendarDates(today)">
+                <h2>
+                  {{ HOZ_CAL[3].weekDayFull }},
+                  <strong class="font-bigger">{{ HOZ_CAL[3].day }}</strong>
+                  de {{ HOZ_CAL[3].monthNameFull }}
+                </h2>
+              </ion-button>
+            </ion-col>
+            <!-- DIA ATUAL -->
 
-          Naqueles dias, depois que o paralítico fora curado, 1Pedro e João ainda estavam falando ao povo, quando chegaram os sacerdotes, o chefe da guarda do Templo e os saduceus. 2Estavam irritados porque os apóstolos ensinavam o povo e anunciavam a ressurreição dos mortos na pessoa de Jesus.
-          
-          3Eles prenderam Pedro e João e os colocaram na prisão até o dia seguinte, porque já estava anoitecendo. 4Todavia, muitos daqueles que tinham ouvido a pregação acreditaram. E o número dos homens chegou a uns cinco mil.
-          
-          5No dia seguinte, reuniram-se em Jerusalém os chefes, os anciãos e os mestres da Lei. 6Estavam presentes o Sumo Sacerdote Anás, e também Caifás, João, Alexandre, e todos os que pertenciam às famílias dos sumos sacerdotes. 7Fizeram Pedro e João comparecer diante deles e os interrogavam: “Com que poder ou em nome de quem vós fizestes isso?” 8Então, Pedro, cheio do Espírito Santo, disse-lhes: “Chefes do povo e anciãos: 9hoje estamos sendo interrogados por termos feito o bem a um enfermo e pelo modo como foi curado. 10Ficai, pois, sabendo todos vós e todo o povo de Israel: é pelo nome de Jesus Cristo, de Nazaré, — aquele que vós crucificastes e que Deus ressuscitou dos mortos — que este homem está curado, diante de vós. 11Jesus é a pedra, que vós, os construtores, desprezastes, e que se tornou a pedra angular.
-          
-          12Em nenhum outro há salvação, pois não existe debaixo do céu outro nome dado aos homens pelo qual possamos ser salvos”.
-          
-          - Palavra do Senhor.
-          
-          - Graças a Deus.
-        </ion-row>
-        <ion-row padding>
-          <strong>Salmo (Sl 117,1-27a)</strong>
-          — A pedra que os pedreiros rejeitaram, tornou-se agora a pedra angular.
+            <ion-col *ngIf="true" class="text-center ph-0" size="2">
+              <ion-button expand="full" color="light" (click)="setCalendarDates(HOZ_CAL[4].date)">
+                <h2 class="font-smaller">
+                  {{ HOZ_CAL[4].weekDayShort }}
+                  <strong class="font-bigger">{{ HOZ_CAL[4].day }}</strong>
+                </h2>
+              </ion-button>
+            </ion-col>
+            <ion-col *ngIf="true" class="text-center ph-0">
+              <ion-button expand="full" color="light" (click)="setCalendarDates(HOZ_CAL[5].date)">
+                <h2 class="font-smaller">
+                  {{ HOZ_CAL[5].weekDayShort }}
+                  <strong class="font-bigger">{{ HOZ_CAL[5].day }}</strong>
+                </h2>
+              </ion-button>
+            </ion-col>
 
-          — A pedra que os pedreiros rejeitaram, tornou-se agora a pedra angular.
-          
-          — Dai graças ao Senhor, porque ele é bom! “Eterna é a sua misericórdia!” A casa de Israel agora o diga: “Eterna é a sua misericórdia!” Os que temem o Senhor agora o digam: “Eterna é a sua misericórdia!”
-          
-          — “A pedra que os pedreiros rejeitaram, tornou-se agora a pedra angular. Pelo Senhor é que foi feito tudo isso: Que maravilhas ele fez a nossos olhos! Este é o dia que o Senhor fez para nós, alegremo-nos e nele exultemos!
-          
-          — Ó Senhor, dai-nos a vossa salvação, ó Senhor, dai-nos também prosperidade!” Bendito seja, em nome do Senhor, aquele que em seus átrios vai entrando! Desta casa do Senhor vos bendizemos. Que o Senhor e nosso Deus nos ilumine!
-        </ion-row>
-        <ion-row padding>
-          <strong>Evangelho (Jo 21,1-14)</strong>
-          — O Senhor esteja convosco.
-          
-          — Ele está no meio de nós.
-          
-          — Proclamação do Evangelho de Jesus Cristo + segundo João.
-          
-          — Glória a vós, Senhor.
-          
-          Naquele tempo, 1Jesus apareceu de novo aos discípulos, à beira do mar de Tiberíades. A aparição foi assim: 2Estavam juntos Simão Pedro, Tomé, chamado Dídimo, Natanael de Caná da Galileia, os filhos de Zebedeu e outros dois discípulos de Jesus.
-          
-          3Simão Pedro disse a eles: “Eu vou pescar”. Eles disseram: “Também vamos contigo”. Saíram e entraram na barca, mas não pescaram nada naquela noite. 4Já tinha amanhecido, e Jesus estava de pé na margem. Mas os discípulos não sabiam que era Jesus. 5Então Jesus disse: “Moços, tendes alguma coisa para comer?” Responderam: “Não”.
-          
-          6Jesus disse-lhes: “Lançai a rede à direita da barca, e achareis”. Lançaram pois a rede e não conseguiam puxá-la para fora, por causa da quantidade de peixes. 7Então, o discípulo a quem Jesus amava disse a Pedro: “É o Senhor!” Simão Pedro, ouvindo dizer que era o Senhor, vestiu sua roupa, pois estava nu, e atirou-se ao mar. 8Os outros discípulos vieram com a barca, arrastando a rede com os peixes. Na verdade, não estavam longe da terra, mas somente a cerca de cem metros. 9Logo que pisaram a terra, viram brasas acesas, com peixe em cima, e pão. 10Jesus disse-lhes: “Trazei alguns dos peixes que apanhastes”.
-          
-          11Então Simão Pedro subiu ao barco e arrastou a rede para a terra. Estava cheia de cento e cinquenta e três grandes peixes; e, apesar de tantos peixes, a rede não se rompeu. 12Jesus disse-lhes: “Vinde comer”. Nenhum dos discípulos se atrevia a perguntar quem era ele, pois sabiam que era o Senhor. 13Jesus aproximou-se, tomou o pão e distribuiu-o por eles. E fez a mesma coisa com o peixe. 14Esta foi a terceira vez que Jesus, ressuscitado dos mortos, apareceu aos discípulos.
-          
-          — Palavra da Salvação.
-          
-          — Glória a vós, Senhor.
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+            <ion-col size="1" class="text-left">
+              <ion-button color="light" (click)="setCalendarDates(HOZ_CAL[6].date)">
+                <ion-icon slot="icon-only" name="fastforward"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <!-- <ion-col *ngIf="false" class="text-center">
+              <ion-button expand="full" fill="outline" (click)="setCalendarDates(HOZ_CAL[6].date)">
+                <h2>
+                  <strong>{{ HOZ_CAL[6].day }}/{{ HOZ_CAL[6].month }}</strong>
+                  ({{ HOZ_CAL[6].weekDayShort }})
+                </h2>
+              </ion-button>
+            </ion-col> -->
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 
-  <section class="message-container">
+  <ion-row class="message-container mt-0">
+    <!-- PRIMEIRA LEITURA -->
+    <ion-col>
+      <ion-card class="mt-0 bg-white h-100">
+        <ion-card-content>
+          <ion-grid padding>
+            <strong>Primeira Leitura </strong>
+            {{ liturgia[randomIndex % liturgia.length].primeira }}
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <!-- SALMO -->
+    <ion-col>
+      <ion-card class="mt-0 bg-white h-100">
+        <ion-card-content>
+          <ion-grid padding>
+            <strong>Salmo </strong>
+            {{ liturgia[randomIndex % liturgia.length].salmo }}
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <!-- SEGUNDA LEITURA -->
+
+    <!-- EVANGELHO -->
+    <ion-col>
+      <ion-card class="mt-0 bg-white h-100">
+        <ion-card-content>
+          <ion-grid padding>
+            <strong>Evangelho </strong>
+            {{ liturgia[randomIndex % liturgia.length].evangelho }}
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+  </ion-row>
+
+  <section class="message-container mt-0">
     <ion-row>
       <ion-col>
         <ion-card>
@@ -237,7 +242,7 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col>
+      <!-- <ion-col>
         <ion-card>
           <ion-card-content>
             <h3 padding>
@@ -258,7 +263,7 @@
             </div>
           </ion-card-content>
         </ion-card>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
   </section>
 
